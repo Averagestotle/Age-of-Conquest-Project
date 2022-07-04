@@ -308,6 +308,7 @@ MonoBehaviour:
   speed: 0
   attackType: 0
   bounty: 0
+  teamEnum: 0
   healthbarScript: {fileID: -2245074281675596062}
   currentHealth: 0
 --- !u!114 &-2245074281675596062

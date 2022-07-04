@@ -7,7 +7,7 @@ public class IdentifyUnitToSpawn : MonoBehaviour
     GameObject unitPrefab;
     SpawnUnitScript spawnUnitScript;
 
-    public void FindUnitToInstantiate(EraEnums eraEnum, GameObject unitObject, Vector3 spawnPosition)
+    public void FindUnitToInstantiate(EraEnums eraEnum, GameObject unitObject, Vector3 spawnPosition, TeamEnum teamEnum = TeamEnum.AI)
     {
         spawnUnitScript = new SpawnUnitScript();
         
@@ -18,7 +18,7 @@ public class IdentifyUnitToSpawn : MonoBehaviour
             case EraEnums.Era01:
                 if (unitObject != null)
                 {
-                    spawnUnitScript.SpawnUnit((GameObject)unitObject, spawnPosition);
+                    spawnUnitScript.SpawnUnit((GameObject)unitObject, spawnPosition, teamEnum);
                 }
 
                 break;

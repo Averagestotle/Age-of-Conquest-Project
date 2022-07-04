@@ -40,7 +40,7 @@ public class UnitButtonClickScript : MonoBehaviour
 
         if (playerController != null && buttonController != null && unitSpawn != null)
         {
-            unitToSpawn.FindUnitToInstantiate(playerController.currentEra, unitObject, unitSpawn.transform.position);
+            unitToSpawn.FindUnitToInstantiate(playerController.currentEra, unitObject, unitSpawn.transform.position, TeamEnum.PLAYER);
         }
         
     }

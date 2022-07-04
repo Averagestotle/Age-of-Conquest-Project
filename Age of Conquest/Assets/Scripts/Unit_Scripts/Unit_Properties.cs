@@ -12,13 +12,13 @@ public class Unit_Properties : MonoBehaviour
     public int speed;
     public AttackTypeEnums attackType;
     public int bounty;
+    public TeamEnum teamEnum = TeamEnum.AI; //{ get; set; }
 
     Unit_Movement movementScript = new Unit_Movement();
 
     [SerializeField] private Healthbar_Script healthbarScript;
 
     public int currentHealth;
-    public bool isPlayer = false;
 
     private void Start()
     {

@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class SpawnUnitScript : MonoBehaviour
 {
-    public void SpawnUnit(GameObject gameObject, Vector3 spawnPosition)
+    public void SpawnUnit(GameObject unitObject, Vector3 spawnPosition, TeamEnum teamEnum = TeamEnum.AI)
     {
-        if (gameObject != null && spawnPosition != null)
+        if (unitObject != null && spawnPosition != null)
         {
-            Instantiate(gameObject, spawnPosition, Quaternion.identity);
+            GameObject newUnitObj = Instantiate(unitObject, spawnPosition, Quaternion.identity);
+            if (newUnitObj != null)
+            {
+                newUnitObj.GetComponent<Unit_Properties>().teamEnum = teamEnum;
+            }
+                    
         }
     }
 }

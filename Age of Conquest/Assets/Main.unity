@@ -882,11 +882,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315561, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315561, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15
+      value: -83
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315561, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: m_LocalRotation.w
@@ -922,11 +922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315566, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: orthographic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315566, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4108204858332315566, guid: 3754eb0ee9ac20647ae74805be405499, type: 3}
       propertyPath: m_FOVAxisMode
