@@ -4,15 +4,79 @@ using UnityEngine;
 
 public class Unit_Movement : MonoBehaviour
 {
-    public void MoveUnit(GameObject gameObject,int speed,bool isPlayer)
+    private Unit_Properties unitProp = new Unit_Properties();
+    private int unitSpeed;
+    private bool isCollided = false;
+    private Rigidbody rb;
+    private Transform attackBar;
+
+    private void Awake()
     {
-        //if (speed != null && isPlayer)
-        //{
-        //    transform.Translate((Vector3.right * speed) * Time.deltaTime);
-        //}
-        if (speed != null)
+        unitProp = this.gameObject.GetComponentInParent<Unit_Properties>();
+        rb = this.gameObject.GetComponentInChildren<Rigidbody>();
+        attackBar = unitProp.gameObject.transform.Find("Healthbar_Canvas/Attackbar_Background"); // /Healthbar_Canvas/Attackbar_Background
+        unitSpeed = unitProp.speed;
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if (attackBar != null)
         {
-            gameObject.transform.Translate((Vector3.right * speed) * Time.deltaTime);
+            if (isCollided)
+            {
+                attackBar.gameObject.SetActive(true);  
+            }
+            else
+            {
+                attackBar.gameObject.SetActive(false);
+            }
         }
+        if(rb != null && unitProp != null && unitProp.speed > 0)
+        {
+            MoveUnit(rb, unitProp.speed, unitProp.teamEnum);
+        }
+        // Unfortunantely OnTriggerExit does NOT get called if an object within a trigger is destroyed.
+        // Need to reset the bool value every fixed frame then... 
+        isCollided = false;
+    }
+
+    public void MoveUnit(Rigidbody rb, int speed, TeamEnum teamEnum)
+    {
+        if (isCollided)
+        {
+            speed = 0;
+        }
+        else
+        {
+            speed = unitSpeed = unitProp.speed;
+        }
+
+        if (speed != null && teamEnum == TeamEnum.PLAYER)
+        {
+            //rb.AddForce((Vector3.right * speed) * Time.deltaTime);
+            this.gameObject.transform.Translate((Vector3.right * speed) * Time.deltaTime);
+        }
+
+        if (speed != null && teamEnum == TeamEnum.AI)
+        {
+            // rb.AddForce((Vector3.left * speed) * Time.deltaTime);
+            this.gameObject.transform.Translate((Vector3.left * speed) * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        isCollided = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        isCollided = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isCollided = false;
     }
 }

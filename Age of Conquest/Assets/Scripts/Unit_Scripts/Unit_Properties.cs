@@ -12,13 +12,15 @@ public class Unit_Properties : MonoBehaviour
     public int speed;
     public AttackTypeEnums attackType;
     public int bounty;
-    public TeamEnum teamEnum = TeamEnum.AI; //{ get; set; }
-
-    Unit_Movement movementScript = new Unit_Movement();
+    public TeamEnum teamEnum = TeamEnum.AI;
+    public float attackSpeed;
 
     [SerializeField] private Healthbar_Script healthbarScript;
 
     public int currentHealth;
+
+    private float curAttack = 20f;
+    private float maxAttack = 100f;
 
     private void Start()
     {
@@ -30,6 +32,7 @@ public class Unit_Properties : MonoBehaviour
         attackType = unitObject.attackType;
         bounty = unitObject.bounty;
         currentHealth = health;
+        attackSpeed = unitObject.attackSpeed;
 
         healthbarScript.UpdateHealthBar(health, currentHealth);
         StartCoroutine(SelfDestruct());
@@ -37,13 +40,22 @@ public class Unit_Properties : MonoBehaviour
 
     private void Update()
     {
-        movementScript.MoveUnit(gameObject, speed, false);
+        healthbarScript.UpdateHealthBar(health, currentHealth);
+        OnDeath(currentHealth);
     }
 
     public IEnumerator SelfDestruct()
     {
         // Temporary, to prevent an infinite amount from being spawned.
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(100f);
         Destroy(gameObject);
+    }
+
+    private void OnDeath(float unitHealth)
+    {
+        if (unitHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -18,4 +18,5 @@ MonoBehaviour:
   unitAssignedDamage: 2
   unitAssignedSpeed: 3
   attackType: 0
+  attackSpeed: 1
   bounty: 5
