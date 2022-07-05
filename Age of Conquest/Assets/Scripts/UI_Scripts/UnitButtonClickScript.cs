@@ -14,7 +14,8 @@ public class UnitButtonClickScript : MonoBehaviour
     private void Awake()
     {
         playerBase = GameObject.Find("Player_Base");
-        unitSpawn = GameObject.Find("Player_Unit_Spawn_Point");
+        //unitSpawn = GameObject.Find("Player_Unit_Spawn_Point");
+        unitSpawn = GameObject.Find("Base/Player_Unit_Spawn_Point");
         // curButton = gameObject.AddComponent(typeof(UnitButtonClickScript)) as UnitButtonClickScript;
     }
 

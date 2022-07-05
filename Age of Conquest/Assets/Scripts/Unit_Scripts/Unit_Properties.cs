@@ -13,14 +13,12 @@ public class Unit_Properties : MonoBehaviour
     public AttackTypeEnums attackType;
     public int bounty;
     public TeamEnum teamEnum = TeamEnum.AI;
+    public ObjectTypeEnums typeEnums;
     public float attackSpeed;
 
     [SerializeField] private Healthbar_Script healthbarScript;
 
     public int currentHealth;
-
-    private float curAttack = 20f;
-    private float maxAttack = 100f;
 
     private void Start()
     {
@@ -33,6 +31,7 @@ public class Unit_Properties : MonoBehaviour
         bounty = unitObject.bounty;
         currentHealth = health;
         attackSpeed = unitObject.attackSpeed;
+        typeEnums = unitObject.objectTypeEnums;
 
         healthbarScript.UpdateHealthBar(health, currentHealth);
         StartCoroutine(SelfDestruct());

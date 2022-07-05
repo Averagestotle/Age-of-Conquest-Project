@@ -11,6 +11,7 @@ public class ScriptableUnitObject : ScriptableObject
     public int unitAssignedDamage;
     public int unitAssignedSpeed;
     public AttackTypeEnums attackType;
+    public ObjectTypeEnums objectTypeEnums = ObjectTypeEnums.UNIT_TYPE;
     public float attackSpeed;
     public int bounty;
 }

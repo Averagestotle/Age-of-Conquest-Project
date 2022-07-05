@@ -67,12 +67,36 @@ public class Unit_Movement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Unit_Properties otherProp = other.gameObject.GetComponentInParent<Unit_Properties>();
+
         isCollided = true;
+
+        if (unitProp.teamEnum == otherProp.teamEnum && otherProp.typeEnums != ObjectTypeEnums.BASE_TYPE)
+        {
+            isCollided = false;
+            Physics.IgnoreCollision(other, GetComponent<Collider>());
+        }
+        if (unitProp.teamEnum != otherProp.teamEnum) {
+            isCollided = true;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        Unit_Properties otherProp = other.gameObject.GetComponentInParent<Unit_Properties>();
+
         isCollided = true;
+
+        if (unitProp.teamEnum == otherProp.teamEnum && otherProp.typeEnums == ObjectTypeEnums.BASE_TYPE)
+        {
+            isCollided = false;
+            Collider getChildRigidBody = unitProp.gameObject.transform.Find("Cube").GetComponent<Collider>();
+            Physics.IgnoreCollision(other, getChildRigidBody);
+        }
+        if (unitProp.teamEnum != otherProp.teamEnum)
+        {
+            isCollided = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
