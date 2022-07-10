@@ -16,7 +16,8 @@ MonoBehaviour:
   unitAssignedHealth: 10
   unitAssignedCost: 15
   unitAssignedDamage: 2
-  unitAssignedSpeed: 3
+  unitAssignedSpeed: 5
   attackType: 0
+  objectTypeEnums: 0
   attackSpeed: 1
   bounty: 5

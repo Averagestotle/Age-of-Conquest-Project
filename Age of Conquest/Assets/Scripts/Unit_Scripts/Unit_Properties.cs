@@ -15,6 +15,7 @@ public class Unit_Properties : MonoBehaviour
     public TeamEnum teamEnum = TeamEnum.AI;
     public ObjectTypeEnums typeEnums;
     public float attackSpeed;
+    private GameObject playerSpawnPoint;
 
     [SerializeField] private Healthbar_Script healthbarScript;
 
@@ -35,6 +36,8 @@ public class Unit_Properties : MonoBehaviour
 
         healthbarScript.UpdateHealthBar(health, currentHealth);
         StartCoroutine(SelfDestruct());
+
+        
     }
 
     private void Update()
@@ -56,5 +59,19 @@ public class Unit_Properties : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        playerSpawnPoint = GameObject.Find("Base/Player_Unit_Spawn_Point");
+        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
+        if (playerSpawnPoint != null)
+        {
+            //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
+                //Gizmos.DrawWireCube(playerSpawnPoint.transform.position, new Vector3(4, 1, 5));
+        }
+
     }
 }
