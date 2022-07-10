@@ -18,4 +18,7 @@ MonoBehaviour:
   unitAssignedDamage: 6
   unitAssignedSpeed: 3
   attackType: 0
+  objectTypeEnums: 0
+  attackSpeed: 1.5
+  attackRange: 1.5
   bounty: 15

@@ -15,7 +15,10 @@ MonoBehaviour:
   unitName: Spearman
   unitAssignedHealth: 15
   unitAssignedCost: 35
-  unitAssignedDamage: 4
+  unitAssignedDamage: 2
   unitAssignedSpeed: 3
-  attackType: 0
+  attackType: 1
+  objectTypeEnums: 0
+  attackSpeed: 0.5
+  attackRange: 5
   bounty: 10

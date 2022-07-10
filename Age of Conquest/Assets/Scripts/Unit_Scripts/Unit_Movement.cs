@@ -6,7 +6,8 @@ public class Unit_Movement : MonoBehaviour
 {
     private Unit_Properties unitProp = new Unit_Properties();
     private int unitSpeed;
-    private bool isCollided = false;
+    private bool enemyCollided = false;
+    private bool canMoveForward = false;
     private Rigidbody rb;
     private Transform attackBar;
 
@@ -18,89 +19,64 @@ public class Unit_Movement : MonoBehaviour
         unitSpeed = unitProp.speed;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         
-        if (attackBar != null)
+        //if (attackBar != null)
+        //{
+        //    if (enemyCollided)
+        //    {
+        //        attackBar.gameObject.SetActive(true);  
+        //    }
+        //    else
+        //    {
+        //        attackBar.gameObject.SetActive(false);
+        //    }
+        //}
+
+        MoveUnit(unitProp.speed, unitProp.teamEnum);      
+    }
+
+    public void MoveUnit(int speed, TeamEnum teamEnum)
+    {
+        Vector3 vector = new Vector3();
+        Vector3 anchor;
+        float movementRayRange = 1.25f;
+
+        if (teamEnum == TeamEnum.PLAYER)
         {
-            if (isCollided)
+            vector = Vector3.right;
+        }
+
+        if (teamEnum == TeamEnum.AI)
+        {
+            vector = Vector3.left;
+        }
+
+        canMoveForward = true;
+
+        Ray ray = new Ray(transform.position, vector);
+        RaycastHit hitInfo;
+        Debug.DrawRay(transform.position, new Vector3(vector.x * movementRayRange, 0, 0), Color.red);
+        if (Physics.Raycast(ray, out hitInfo, movementRayRange))
+        {
+            // Debug.Log(this.gameObject.name + " collided with: " + hitInfo.collider.gameObject.name);
+            Unit_Properties otherProp = hitInfo.collider.gameObject.GetComponentInParent<Unit_Properties>();
+            if (otherProp != null && unitProp != null && unitProp.teamEnum == otherProp.teamEnum && otherProp.typeEnums == ObjectTypeEnums.BASE_TYPE)
             {
-                attackBar.gameObject.SetActive(true);  
+                canMoveForward = true;
+                Physics.IgnoreCollision(hitInfo.collider, GetComponent<Collider>());
             }
-            else
+
+            if (hitInfo.collider.gameObject != gameObject)
             {
-                attackBar.gameObject.SetActive(false);
+                canMoveForward = false;
             }
         }
-        if(rb != null && unitProp != null && unitProp.speed > 0)
+
+        if (canMoveForward)
         {
-            MoveUnit(rb, unitProp.speed, unitProp.teamEnum);
-        }
-        // Unfortunantely OnTriggerExit does NOT get called if an object within a trigger is destroyed.
-        // Need to reset the bool value every fixed frame then... 
-        isCollided = false;
-    }
-
-    public void MoveUnit(Rigidbody rb, int speed, TeamEnum teamEnum)
-    {
-        if (isCollided)
-        {
-            speed = 0;
-        }
-        else
-        {
-            speed = unitSpeed = unitProp.speed;
-        }
-
-        if (speed != null && teamEnum == TeamEnum.PLAYER)
-        {
-            //rb.AddForce((Vector3.right * speed) * Time.deltaTime);
-            this.gameObject.transform.Translate((Vector3.right * speed) * Time.deltaTime);
-        }
-
-        if (speed != null && teamEnum == TeamEnum.AI)
-        {
-            // rb.AddForce((Vector3.left * speed) * Time.deltaTime);
-            this.gameObject.transform.Translate((Vector3.left * speed) * Time.deltaTime);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Unit_Properties otherProp = other.gameObject.GetComponentInParent<Unit_Properties>();
-
-        isCollided = true;
-
-        if (unitProp.teamEnum == otherProp.teamEnum && otherProp.typeEnums != ObjectTypeEnums.BASE_TYPE)
-        {
-            isCollided = false;
-            Physics.IgnoreCollision(other, GetComponent<Collider>());
-        }
-        if (unitProp.teamEnum != otherProp.teamEnum) {
-            isCollided = true;
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        Unit_Properties otherProp = other.gameObject.GetComponentInParent<Unit_Properties>();
-
-        isCollided = true;
-
-        if (unitProp.teamEnum == otherProp.teamEnum && otherProp.typeEnums == ObjectTypeEnums.BASE_TYPE)
-        {
-            isCollided = false;
-            Collider getChildRigidBody = unitProp.gameObject.transform.Find("Cube").GetComponent<Collider>();
-            Physics.IgnoreCollision(other, getChildRigidBody);
-        }
-        if (unitProp.teamEnum != otherProp.teamEnum)
-        {
-            isCollided = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isCollided = false;
+            transform.Translate(vector * Time.deltaTime * speed);
+        }        
     }
 }

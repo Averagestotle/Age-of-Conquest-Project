@@ -11,8 +11,17 @@ public class SpawnUnitScript : MonoBehaviour
             GameObject newUnitObj = Instantiate(unitObject, spawnPosition, Quaternion.identity);
             if (newUnitObj != null)
             {
-                Unit_Properties newUnitObjProp = newUnitObj.GetComponent<Unit_Properties>();
+                Unit_Properties newUnitObjProp = newUnitObj.GetComponent<Unit_Properties>();                
                 newUnitObjProp.teamEnum = teamEnum;
+
+                if (teamEnum == TeamEnum.PLAYER)
+                {
+                    newUnitObj.layer = LayerMask.NameToLayer("Player Mask");
+                }
+                else
+                {
+                    newUnitObj.layer = LayerMask.NameToLayer("AI Mask");
+                }
             }                   
         }
     }

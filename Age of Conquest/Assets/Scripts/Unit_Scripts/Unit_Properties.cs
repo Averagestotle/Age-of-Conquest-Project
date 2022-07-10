@@ -15,6 +15,7 @@ public class Unit_Properties : MonoBehaviour
     public TeamEnum teamEnum = TeamEnum.AI;
     public ObjectTypeEnums typeEnums;
     public float attackSpeed;
+    public float attackRange;
     private GameObject playerSpawnPoint;
 
     [SerializeField] private Healthbar_Script healthbarScript;
@@ -32,6 +33,7 @@ public class Unit_Properties : MonoBehaviour
         bounty = unitObject.bounty;
         currentHealth = health;
         attackSpeed = unitObject.attackSpeed;
+        attackRange = unitObject.attackRange;
         typeEnums = unitObject.objectTypeEnums;
 
         healthbarScript.UpdateHealthBar(health, currentHealth);
