@@ -37,7 +37,7 @@ public class Unit_Properties : MonoBehaviour
         typeEnums = unitObject.objectTypeEnums;
 
         healthbarScript.UpdateHealthBar(health, currentHealth);
-        StartCoroutine(SelfDestruct());
+        //StartCoroutine(SelfDestruct());
 
         
     }
