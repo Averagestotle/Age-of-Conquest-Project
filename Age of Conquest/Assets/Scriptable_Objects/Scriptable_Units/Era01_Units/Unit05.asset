@@ -15,6 +15,7 @@ MonoBehaviour:
   unitName: Chieftan
   unitAssignedHealth: 20
   unitAssignedCost: 70
+  unitBuildSpeed: 5
   unitAssignedDamage: 8
   unitAssignedSpeed: 3
   attackType: 0

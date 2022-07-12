@@ -15,6 +15,7 @@ MonoBehaviour:
   unitName: Warrior
   unitAssignedHealth: 10
   unitAssignedCost: 15
+  unitBuildSpeed: 1
   unitAssignedDamage: 2
   unitAssignedSpeed: 2
   attackType: 0

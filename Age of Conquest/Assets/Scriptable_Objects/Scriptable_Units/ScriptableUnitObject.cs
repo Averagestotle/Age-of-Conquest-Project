@@ -8,6 +8,7 @@ public class ScriptableUnitObject : ScriptableObject
     public string unitName;
     public int unitAssignedHealth;
     public int unitAssignedCost;
+    public float unitBuildSpeed;
     public int unitAssignedDamage;
     public int unitAssignedSpeed;
     public AttackTypeEnums attackType;

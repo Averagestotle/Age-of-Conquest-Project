@@ -20,13 +20,14 @@ public class IdentifyUnitToSpawn : MonoBehaviour
         aiBaseProp = GameObject.Find("AI_Base").GetComponent<Unit_Properties>();        
     }
 
-    public void FindUnitToInstantiate(EraEnums eraEnum, GameObject unitObject, Vector3 spawnPosition, TeamEnum teamEnum = TeamEnum.AI)
+    public void FindUnitToInstantiate(EraEnums eraEnum, GameObject unitObject, Vector3 spawnPosition, TeamEnum teamEnum = TeamEnum.AI, double unitCost = 0d)
     {
         spawnUnitScript = new SpawnUnitScript();
         
 
         playerBaseProp = GameObject.Find("Player_Base").GetComponent<Unit_Properties>();
         aiBaseProp = GameObject.Find("AI_Base").GetComponent<Unit_Properties>();
+        Player_Controller playerController = new Player_Controller();
         playerSpawnPoint = GameObject.Find("Base/Player_Unit_Spawn_Point");
         aiSpawnPoint = GameObject.Find("Base/AI_Unit_Spawn_Point");
         GameObject assignedSpawnPoint;
@@ -41,6 +42,7 @@ public class IdentifyUnitToSpawn : MonoBehaviour
         {
             basePropCheck = playerBaseProp;
             assignedSpawnPoint = playerSpawnPoint;
+            playerController = basePropCheck.GetComponent<Player_Controller>();
         }
         else
         {
@@ -70,7 +72,7 @@ public class IdentifyUnitToSpawn : MonoBehaviour
                 
                 if (unitObj != null && unitObj.teamEnum == teamEnum && unitObj.typeEnums == ObjectTypeEnums.UNIT_TYPE)
                 {
-                    unitList.Add(unitObj.gameObject);
+                    unitList.Add(unitObj.gameObject);                    
                 }
             }
 
@@ -78,6 +80,11 @@ public class IdentifyUnitToSpawn : MonoBehaviour
             {
                 Debug.Log("Cannot spawn new unit.");
                 return;
+            }
+
+            if (playerController != null)
+            {
+                playerController.SubtractNewCurrency(unitCost);
             }
         }         
 

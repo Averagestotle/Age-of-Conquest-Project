@@ -15,6 +15,7 @@ MonoBehaviour:
   unitName: Rock Thrower
   unitAssignedHealth: 6
   unitAssignedCost: 25
+  unitBuildSpeed: 3
   unitAssignedDamage: 1
   unitAssignedSpeed: 3
   attackType: 1

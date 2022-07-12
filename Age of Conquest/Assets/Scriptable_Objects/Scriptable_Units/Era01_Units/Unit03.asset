@@ -15,6 +15,7 @@ MonoBehaviour:
   unitName: Spearman
   unitAssignedHealth: 15
   unitAssignedCost: 35
+  unitBuildSpeed: 4
   unitAssignedDamage: 2
   unitAssignedSpeed: 3
   attackType: 1

@@ -26,14 +26,18 @@ public class UnitButtonClickScript : MonoBehaviour
 
     public void UserClickedUnitButton(GameObject unitObject)
     {
-        //GameObject playerBase = new GameObject();
-       // GameObject unitSpawn = new GameObject();
-
+       int unitCost = 0;
         
         if (playerBase != null) 
         {
-            playerController = playerBase.GetComponent<Player_Controller>();
+            playerController = playerBase.GetComponent<Player_Controller>();            
         }
+
+        if (unitObject != null)
+        {
+            unitCost = unitObject.GetComponent<Unit_Properties>().unitObject.unitAssignedCost;
+        }
+
         if (gameObject != null)
         {
             buttonController = gameObject.GetComponent<ButtonControllerScript>();
@@ -41,8 +45,25 @@ public class UnitButtonClickScript : MonoBehaviour
 
         if (playerBase != null && playerController != null && buttonController != null && unitSpawn != null)
         {
-            unitToSpawn.FindUnitToInstantiate(playerController.currentEra, unitObject, unitSpawn.transform.position, TeamEnum.PLAYER);
+            if (CheckIfAffordable(unitCost))
+            {
+                unitToSpawn.FindUnitToInstantiate(playerController.currentEra, unitObject, unitSpawn.transform.position, TeamEnum.PLAYER, unitCost);
+                //playerController.SubtractNewCurrency(unitCost);
+            }
+            else
+            {
+                Debug.Log("Could not afford: " + unitObject.name);
+            }           
         }
-        
+    }
+    public bool CheckIfAffordable(double unitCost)
+    {
+        bool isAffordable = false;
+
+        if (unitCost > 0 && playerController.currentCurrency >= unitCost)
+        {
+            isAffordable = true;
+        }
+        return isAffordable;
     }
 }
