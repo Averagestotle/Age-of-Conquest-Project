@@ -9,15 +9,20 @@ public class IdentifyUnitToSpawn : MonoBehaviour
     private BaseCollisionScript baseCollisionScript = new BaseCollisionScript();
     private Unit_Properties playerBaseProp = new Unit_Properties();
     private Unit_Properties aiBaseProp = new Unit_Properties();
+    private BaseUnitQueueScript playerQueueScript = new BaseUnitQueueScript();
+    private BaseUnitQueueScript aiQueueScript = new BaseUnitQueueScript();
+    BaseUnitQueueScript baseUnitQueue = new BaseUnitQueueScript();
     private GameObject playerSpawnPoint;
     private GameObject aiSpawnPoint;
     Unit_Properties basePropCheck;
-    bool m_Started = true;
+    bool m_Started = true;    
 
     private void Awake()
     {
         playerBaseProp = GameObject.Find("Player_Base").GetComponent<Unit_Properties>();
-        aiBaseProp = GameObject.Find("AI_Base").GetComponent<Unit_Properties>();        
+        aiBaseProp = GameObject.Find("AI_Base").GetComponent<Unit_Properties>();
+        playerQueueScript = GameObject.Find("Player_Base").GetComponent<BaseUnitQueueScript>();
+        aiQueueScript = GameObject.Find("AI_Base").GetComponent<BaseUnitQueueScript>();
     }
 
     public void FindUnitToInstantiate(EraEnums eraEnum, GameObject unitObject, Vector3 spawnPosition, TeamEnum teamEnum = TeamEnum.AI, double unitCost = 0d)
@@ -27,7 +32,11 @@ public class IdentifyUnitToSpawn : MonoBehaviour
 
         playerBaseProp = GameObject.Find("Player_Base").GetComponent<Unit_Properties>();
         aiBaseProp = GameObject.Find("AI_Base").GetComponent<Unit_Properties>();
+        playerQueueScript = GameObject.Find("Player_Base").GetComponent<BaseUnitQueueScript>();
+        aiQueueScript = GameObject.Find("AI_Base").GetComponent<BaseUnitQueueScript>();
+        
         Player_Controller playerController = new Player_Controller();
+
         playerSpawnPoint = GameObject.Find("Base/Player_Unit_Spawn_Point");
         aiSpawnPoint = GameObject.Find("Base/AI_Unit_Spawn_Point");
         GameObject assignedSpawnPoint;
@@ -43,57 +52,29 @@ public class IdentifyUnitToSpawn : MonoBehaviour
             basePropCheck = playerBaseProp;
             assignedSpawnPoint = playerSpawnPoint;
             playerController = basePropCheck.GetComponent<Player_Controller>();
+            baseUnitQueue = GameObject.Find("Player_Base").GetComponent<BaseUnitQueueScript>();
         }
         else
         {
             basePropCheck = aiBaseProp;
             assignedSpawnPoint = aiSpawnPoint;
+            baseUnitQueue = GameObject.Find("AI_Base").GetComponent<BaseUnitQueueScript>();
         }
 
-        Collider[] unitColliders;
-
-        if (assignedSpawnPoint == null)
+        if (playerController != null && !baseUnitQueue.IsQueueFull())
         {
-            Debug.Log("No spawn point assigned.");
-            return;
-        }
+            playerController.SubtractNewCurrency(unitCost);
+        }       
 
-        unitColliders = Physics.OverlapBox(assignedSpawnPoint.transform.position, new Vector3(2, 1, 5));
-
-        if (unitColliders.Length > 0)
-        {
-            Debug.Log("-----------------------------------------------------------------");
-            List<GameObject> unitList = new List<GameObject>();
-
-            for (int i = 0; i < unitColliders.Length; i++)
-            {                
-                Debug.Log("Game Object: " + unitColliders[i].gameObject.name);
-                Unit_Properties unitObj = unitColliders[i].gameObject.GetComponent<Unit_Properties>();
-                
-                if (unitObj != null && unitObj.teamEnum == teamEnum && unitObj.typeEnums == ObjectTypeEnums.UNIT_TYPE)
-                {
-                    unitList.Add(unitObj.gameObject);                    
-                }
-            }
-
-            if (unitList.Count > 0)
-            {
-                Debug.Log("Cannot spawn new unit.");
-                return;
-            }
-
-            if (playerController != null)
-            {
-                playerController.SubtractNewCurrency(unitCost);
-            }
-        }         
-
-        switch(eraEnum)
+        switch (eraEnum)
         {
             case EraEnums.Era01:
                 if (unitObject != null)
                 {
-                    spawnUnitScript.SpawnUnit((GameObject)unitObject, spawnPosition, teamEnum);
+                    if(!baseUnitQueue.IsQueueFull())
+                    {
+                        baseUnitQueue.AddUnitToQueue(unitObject);
+                    }
                 }
 
                 break;

@@ -57,7 +57,12 @@ public class AISpawnScript : MonoBehaviour
             {
                 int randIndex = Random.Range(0, listLength - 1);
                 GameObject spawnedUnit = listOfSpawnableUnits[randIndex];
-                unitToSpawn.FindUnitToInstantiate(playerController.currentEra, spawnedUnit, unitSpawn.transform.position, TeamEnum.AI);
+
+                if(spawnedUnit != null)
+                {
+                    unitToSpawn.FindUnitToInstantiate(playerController.currentEra, spawnedUnit, unitSpawn.transform.position, TeamEnum.AI);
+                }
+                
                 curTime = 0f;
                 canSpawn = false;
             }
