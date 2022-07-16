@@ -59,21 +59,25 @@ public class Unit_Properties : MonoBehaviour
     {
         if (unitHealth <= 0)
         {
+            if (gameObject != null)
+            {
+                Player_Controller playerController = new Player_Controller();
+                if (teamEnum == TeamEnum.AI)
+                {
+                    playerController = GameObject.Find("Player_Base").GetComponent<Player_Controller>();
+                }
+
+                if (teamEnum == TeamEnum.PLAYER)
+                {
+                    playerController = GameObject.Find("AI_Base").GetComponent<Player_Controller>();
+                }
+
+                if (playerController != null)
+                {
+                    playerController.currentCurrency = playerController.AddNewCurrency(bounty);
+                }
+            }
             Destroy(gameObject);
         }
-    }
-
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        playerSpawnPoint = GameObject.Find("Base/Player_Unit_Spawn_Point");
-        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
-        if (playerSpawnPoint != null)
-        {
-            //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
-                //Gizmos.DrawWireCube(playerSpawnPoint.transform.position, new Vector3(4, 1, 5));
-        }
-
     }
 }

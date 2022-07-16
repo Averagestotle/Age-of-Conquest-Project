@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEra: 0
   currentCurrency: 0
+  incrementalIncome: 50
 --- !u!1001 &6645642263378618623
 PrefabInstance:
   m_ObjectHideFlags: 0

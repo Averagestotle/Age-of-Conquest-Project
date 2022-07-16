@@ -22,4 +22,4 @@ MonoBehaviour:
   objectTypeEnums: 0
   attackSpeed: 0.2
   attackRange: 5
-  bounty: 5
+  bounty: 25

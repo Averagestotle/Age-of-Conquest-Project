@@ -26,7 +26,7 @@ public class AISpawnScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Object[] subListObjects = Resources.LoadAll("", typeof(GameObject));
+        Object[] subListObjects = Resources.LoadAll("Era01_Prefabs", typeof(GameObject)); // Assets/Prefabs/Unit_Prefabs/Resources/Era01_Prefabs/Unit01.prefab
 
         foreach (GameObject indexListObject in subListObjects)
         {
@@ -67,8 +67,6 @@ public class AISpawnScript : MonoBehaviour
                 canSpawn = false;
             }
         }
-
-
     }
 
     private bool SpawnTimer(float timer)

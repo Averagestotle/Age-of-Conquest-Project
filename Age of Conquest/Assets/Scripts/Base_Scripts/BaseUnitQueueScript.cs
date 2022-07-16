@@ -92,23 +92,26 @@ public class BaseUnitQueueScript : MonoBehaviour
         if (unitQueue.Count > 0)
         {
             Unit_Properties newUnitObjProp = unitQueue[0].GetComponent<Unit_Properties>();
-            UnitBuildTimer(newUnitObjProp.unitObject.unitBuildSpeed);
+            if (newUnitObjProp != null)
+            {
+                UnitBuildTimer(newUnitObjProp.unitObject.unitBuildSpeed);
 
-            if (basePropCheck != null && basePropCheck.teamEnum == TeamEnum.PLAYER)
-            {
-                if (recruitBar != null)
+                if (basePropCheck != null && basePropCheck.teamEnum == TeamEnum.PLAYER)
                 {
-                    recruitBar.gameObject.SetActive(true);
+                    if (recruitBar != null)
+                    {
+                        recruitBar.gameObject.SetActive(true);
+                    }
                 }
-            }
-                
-            
-            if (canBuildUnit && IsSpawnEmpty(assignedSpawnPoint, basePropCheck.teamEnum)) 
-            {
-                
-                spawnUnitScript.SpawnUnit(unitQueue[0].gameObject, assignedSpawnPoint.transform.position, basePropCheck.teamEnum);
-                RemoveUnitToQueue();
-            }            
+
+
+                if (canBuildUnit && IsSpawnEmpty(assignedSpawnPoint, basePropCheck.teamEnum))
+                {
+
+                    spawnUnitScript.SpawnUnit(unitQueue[0].gameObject, assignedSpawnPoint.transform.position, basePropCheck.teamEnum);
+                    RemoveUnitToQueue();
+                }
+            }                
         }
         else
         {

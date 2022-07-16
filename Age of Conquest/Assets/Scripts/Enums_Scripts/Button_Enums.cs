@@ -7,6 +7,7 @@ public class Button_Enums : MonoBehaviour
 
 }
 
+[SerializeField]
 public enum UnitButtonEnums
 {
     UnitButton01,
@@ -16,6 +17,7 @@ public enum UnitButtonEnums
     UnitButton05
 }
 
+[SerializeField]
 public enum BuildingButtonEnums
 {
     BuildingButton01,

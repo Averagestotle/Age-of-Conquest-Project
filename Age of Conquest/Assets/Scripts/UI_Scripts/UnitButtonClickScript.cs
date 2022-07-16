@@ -11,12 +11,22 @@ public class UnitButtonClickScript : MonoBehaviour
     GameObject playerBase;
     GameObject unitSpawn;
 
+    private List<GameObject> listOfSpawnableEra01Units = new List<GameObject>();
+
     private void Awake()
     {
         playerBase = GameObject.Find("Player_Base");
         //unitSpawn = GameObject.Find("Player_Unit_Spawn_Point");
         unitSpawn = GameObject.Find("Base/Player_Unit_Spawn_Point");
         // curButton = gameObject.AddComponent(typeof(UnitButtonClickScript)) as UnitButtonClickScript;
+
+        Object[] subListObjects = Resources.LoadAll("", typeof(GameObject));
+
+        foreach (GameObject indexListObject in subListObjects)
+        {
+            GameObject iObj = (GameObject)indexListObject;
+            listOfSpawnableEra01Units.Add(iObj);
+        }
     }
 
     private void Start()
@@ -24,7 +34,43 @@ public class UnitButtonClickScript : MonoBehaviour
         
     }
 
-    public void UserClickedUnitButton(GameObject unitObject)
+    public void UserClickedRecruitButton(ButtonControllerScript unitButtonComponent)
+    {
+        if (listOfSpawnableEra01Units.Count > 0)
+        {
+            switch (unitButtonComponent.unitButton)
+            {
+                case UnitButtonEnums.UnitButton01:
+                    BeginUnitSpawn(listOfSpawnableEra01Units[0]);
+                    break;
+                case UnitButtonEnums.UnitButton02:
+                    BeginUnitSpawn(listOfSpawnableEra01Units[1]);
+                    break;
+                case UnitButtonEnums.UnitButton03:
+                    BeginUnitSpawn(listOfSpawnableEra01Units[2]);
+                    break;
+                case UnitButtonEnums.UnitButton04:
+                    BeginUnitSpawn(listOfSpawnableEra01Units[3]);
+                    break;
+                case UnitButtonEnums.UnitButton05:
+                    BeginUnitSpawn(listOfSpawnableEra01Units[4]);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("Could not find list of units to put in an array!");
+        }
+    }
+
+    public void TestMethod()
+    {
+
+    }
+
+    public void BeginUnitSpawn(GameObject unitObject)
     {
        int unitCost = 0;
         

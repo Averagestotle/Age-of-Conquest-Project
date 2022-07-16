@@ -18,6 +18,9 @@ public class Unit_Attack : MonoBehaviour
     float attackRayRange = 0f;
     int targetMask;
 
+    GameObject playerBase;
+    Player_Controller playerController;
+
     private void Awake()
     {
         unitProp = this.gameObject.GetComponentInParent<Unit_Properties>();
