@@ -93,9 +93,7 @@ public class BaseUnitQueueScript : MonoBehaviour
         {
             Unit_Properties newUnitObjProp = unitQueue[0].GetComponent<Unit_Properties>();
             if (newUnitObjProp != null)
-            {
-                UnitBuildTimer(newUnitObjProp.unitObject.unitBuildSpeed);
-
+            {               
                 if (basePropCheck != null && basePropCheck.teamEnum == TeamEnum.PLAYER)
                 {
                     if (recruitBar != null)
@@ -104,6 +102,7 @@ public class BaseUnitQueueScript : MonoBehaviour
                     }
                 }
 
+                UnitBuildTimer(newUnitObjProp.unitObject.unitBuildSpeed);
 
                 if (canBuildUnit && IsSpawnEmpty(assignedSpawnPoint, basePropCheck.teamEnum))
                 {
