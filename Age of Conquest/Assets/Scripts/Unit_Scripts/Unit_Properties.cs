@@ -62,20 +62,29 @@ public class Unit_Properties : MonoBehaviour
             if (gameObject != null)
             {
                 Player_Controller playerController = new Player_Controller();
+                BaseTurretArrayListScript baseTurretArrayListScript = new BaseTurretArrayListScript();
+
                 if (teamEnum == TeamEnum.AI)
                 {
                     playerController = GameObject.Find("Player_Base").GetComponent<Player_Controller>();
+                    baseTurretArrayListScript = GameObject.Find("Player_Base").GetComponent<BaseTurretArrayListScript>();
                 }
 
                 if (teamEnum == TeamEnum.PLAYER)
                 {
                     playerController = GameObject.Find("AI_Base").GetComponent<Player_Controller>();
+                    baseTurretArrayListScript = GameObject.Find("AI_Base").GetComponent<BaseTurretArrayListScript>();
                 }
 
                 if (playerController != null)
                 {
                     playerController.currentCurrency = playerController.AddNewCurrency(bounty);
                 }
+
+                if (baseTurretArrayListScript != null)
+                {
+                    baseTurretArrayListScript.RemoveEnemyUnitFromList(gameObject);
+                }                
             }
             Destroy(gameObject);
         }

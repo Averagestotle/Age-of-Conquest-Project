@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be56b57c36a76064986ceadec726641d, type: 3}
   m_Name: Turret01
   m_EditorClassIdentifier: 
-  attackSpeed: 2
+  attackSpeed: 0.25
   attackDamage: 1
   turretPrice: 50
+  teamEnum: 0

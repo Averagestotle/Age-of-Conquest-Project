@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_Base
       objectReference: {fileID: 0}
+    - target: {fileID: 7637914266489331677, guid: 43e373fb33919a6469c1b934cda662ea, type: 3}
+      propertyPath: incrementalIncome
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8273133447412201753, guid: 43e373fb33919a6469c1b934cda662ea, type: 3}
       propertyPath: m_IsTrigger
       value: 1
